@@ -7,14 +7,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-sqlite-storage": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-sqlite-storage@^2.4.0"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-websql": {
     "source": {
       "type": "registry",

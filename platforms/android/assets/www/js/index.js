@@ -70,6 +70,10 @@ var app = {
                 [], onSuccess, onError);
         });
 
+        //HEAD
+        $("#headApp").html("Password Saver");
+        
+        //DATATABBLE
         $('#data').DataTable();
 
         includeHTML();

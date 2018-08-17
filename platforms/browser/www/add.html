@@ -1,0 +1,49 @@
+<span w3-include-html="head.html"></span>
+
+<body class="bg-light">
+
+<nav class="navbar navbar-expand navbar-dark bg-primary">
+    <a class="sidebar-toggle mr-3" href="#"><i class="fa fa-bars"></i></a>
+    <a class="navbar-brand" href="#" id="headApp"></a>
+    
+    <span w3-include-html="nav.html"></span>
+</nav>
+
+<div class="d-flex">
+    
+    <span w3-include-html="menu.html"></span>
+    
+    <div class="content p-4">
+        <h2 class="mb-4">Password Add</h2>
+        <div class="card mb-4">
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Name</label>
+                        <input type="text" class="form-control" id="data-name" placeholder="Name Of Account : Ex : Facebook" required="required">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Username</label>
+                        <input type="text" class="form-control" id="data-username" required="required">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="data-password" placeholder="Name Of Account : Ex : Facebook" required="required">
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer bg-white">
+                <button type="submit" class="btn btn-primary" id="add-data">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/bootadmin.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+</body>
+</html>

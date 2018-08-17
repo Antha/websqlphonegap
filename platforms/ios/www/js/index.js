@@ -66,13 +66,13 @@ var app = {
         
         //CREATE TABLE
         db.transaction(function (tx) {
-            tx.executeSql("CREATE TABLE IF NOT EXISTS todo(ID INTEGER PRIMARY KEY ASC, todo TEXT, added_on TEXT)",
+            tx.executeSql("CREATE TABLE IF NOT EXISTS data(ID INTEGER PRIMARY KEY ASC, NAME TEXT, USERNAME TEXT, PASSWORD TEXT)",
                 [], onSuccess, onError);
         });
 
         //HEAD
         $("#headApp").html("Password Saver");
-        
+
         //DATATABBLE
         $('#data').DataTable();
 
@@ -101,6 +101,41 @@ var app = {
         });
     },
 
+    doView : function(){  //SELECT
+        db.transaction(function (tx) { 
+        tx.executeSql('SELECT * FROM data', [], function (tx, results) { 
+              var len = results.rows.length, i; 
+              for(var i=0; i<results.rows.length; i++) {
+                var row = results.rows.item(i);
+
+                //alert(row["NAME"]);
+
+                rowstmt = '<tr role="row" class="odd">';
+                rowstmt += '<td tabindex="0" class="sorting_1">'+row["NAME"]+'</td>';                 
+                rowstmt += '<td class=" actions">';
+                rowstmt += '<a href="#" class="btn btn-icon btn-pill btn-primary" data-toggle="tooltip" title="Edit"><i class="fa fa-fw fa-edit"></i></a>';
+                rowstmt += '<a href="#" class="btn btn-icon btn-pill btn-danger" data-toggle="tooltip" title="Delete"><i class="fa fa-fw fa-trash"></i></a>';
+                rowstmt += '</td>'
+                rowstmt += '</tr>';
+                
+                $('table tbody').append(rowstmt);
+              }
+          
+           }, null); 
+        });
+    },
+
+    doAdd : function(){
+      db.transaction(function (tx) {
+         tx.executeSql("INSERT INTO data(NAME,USERNAME,PASSWORD) VALUES (?,?,?)", 
+            [$("#data-name").val(),
+             $("#data-username").val(),
+             $("#data-password").val()], 
+             onSuccess, onError);
+      });
+      alert("Has Been Uploaded"+$("#data-username").val());
+    },
+
     // deviceready Event Handler
     //
     // Bind any cordova events here. Common events are:
@@ -123,3 +158,8 @@ var app = {
 };
 
 app.initialize();
+app.doView();
+
+$("#add-data").click(function(){
+    app.doAdd();
+});

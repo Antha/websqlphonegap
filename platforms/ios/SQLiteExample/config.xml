@@ -34,6 +34,10 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <icon platform="android" qualifier="ldpi" src="res/icon/android/ldpi.png" />
+    <icon platform="android" qualifier="mdpi" src="res/icon/android/mdpi.png" />
+    <icon platform="android" qualifier="hdpi" src="res/icon/android/hdpi.png" />
+    <icon platform="android" qualifier="xhdpi" src="res/icon/android/xhdpi.png" />
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
     <preference name="AllowInlineMediaPlayback" value="false" />

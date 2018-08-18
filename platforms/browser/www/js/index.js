@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 var dbSize = 5 * 1024 * 1024; // 5MB
 
 var db = openDatabase("Todo", "", "Todo manager", dbSize, function() {
@@ -165,7 +166,7 @@ var app = {
                 rowstmt += '<td tabindex="0" class="sorting_1"><a href="add.html?ID='+row["ID"]+'&&mod=V">'+row["NAME"]+'</a></td>';                 
                 rowstmt += '<td class=" actions">';
                 rowstmt += '<a href="add.html?ID='+row["ID"]+'&&mod=E"class="btn btn-icon btn-pill btn-primary" data-toggle="tooltip" title="Edit"><i class="fa fa-fw fa-edit"></i></a>';
-                rowstmt += '<a onclick = "app.doDelete(\'4\')" class="btn btn-icon btn-pill btn-danger" data-toggle="tooltip" title="Delete"><i class="fa fa-fw fa-trash"></i></a>';
+                rowstmt += '<a onclick = "app.doDelete(\''+row["ID"]+'\')" class="btn btn-icon btn-pill btn-danger" data-toggle="tooltip" title="Delete"><i class="fa fa-fw fa-trash"></i></a>';
                 rowstmt += '</td>'
                 rowstmt += '</tr>';
                 
@@ -206,6 +207,7 @@ var app = {
                  onSuccess, onError);
           });
           alert("Data Has Been Delete");
+          location.reload();
         }
     },
 

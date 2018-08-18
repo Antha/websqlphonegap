@@ -28,4 +28,9 @@
     <engine name="ios" spec="^4.5.5" />
     <engine name="browser" spec="^5.0.4" />
     <plugin name="cordova-plugin-websql" spec="0.0.10" />
+
+    <icon src="res/icon/android/ldpi.png" platform="android" qualifier="ldpi" />
+    <icon src="res/icon/android/mdpi.png" platform="android" qualifier="mdpi" />
+    <icon src="res/icon/android/hdpi.png" platform="android" qualifier="hdpi" />
+    <icon src="res/icon/android/xhdpi.png" platform="android" qualifier="xhdpi" />
 </widget>

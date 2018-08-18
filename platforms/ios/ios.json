@@ -1,29 +1,29 @@
 {
-    "prepare_queue": {
-        "installed": [],
-        "uninstalled": []
-    },
-    "config_munge": {
-        "files": {
-            "config.xml": {
-                "parents": {
-                    "/*": []
-                }
-            }
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {
+      "config.xml": {
+        "parents": {
+          "/*": []
         }
-    },
-    "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.codesundar.sqlite"
-        },
-        "cordova-plugin-websql": {
-            "PACKAGE_NAME": "com.codesundar.sqlite"
-        }
-    },
-    "dependent_plugins": {},
-    "modules": [],
-    "plugin_metadata": {
-        "cordova-plugin-whitelist": "1.3.3",
-        "cordova-plugin-websql": "0.0.10"
+      }
     }
+  },
+  "installed_plugins": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.codesundar.sqlite"
+    },
+    "cordova-plugin-websql": {
+      "PACKAGE_NAME": "com.codesundar.sqlite"
+    }
+  },
+  "dependent_plugins": {},
+  "modules": [],
+  "plugin_metadata": {
+    "cordova-plugin-whitelist": "1.3.3",
+    "cordova-plugin-websql": "0.0.10"
+  }
 }

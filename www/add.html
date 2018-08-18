@@ -14,21 +14,23 @@
     <span w3-include-html="menu.html"></span>
     
     <div class="content p-4">
-        <h2 class="mb-4">Password Add</h2>
+        <h2 class="mb-4" id="subtitle">Password Add</h2>
         <div class="card mb-4">
             <div class="card-body">
                 <form>
+                    <input type="hidden" id="data-mod">
+                    <input type="hidden" id="data-id">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Name</label>
-                        <input type="text" class="form-control" id="data-name" placeholder="Name Of Account : Ex : Facebook" required="required">
+                        <input type="text" class="form-control" id="data-name" placeholder="Ex : Facebook, Gmail, Whatsapp, Etc" required="required">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Username</label>
-                        <input type="text" class="form-control" id="data-username" required="required">
+                        <input type="text" class="form-control" id="data-username" required="required" placeholder="Ex : myname@gmail.com, Richard Max">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="data-password" placeholder="Name Of Account : Ex : Facebook" required="required">
+                        <input type="password" class="form-control" id="data-password" placeholder="********" required="required">
                     </div>
                 </form>
             </div>

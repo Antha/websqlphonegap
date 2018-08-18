@@ -75,8 +75,59 @@ var app = {
 
         //DATATABBLE
         $('#data').DataTable();
+        $(".dataTables_empty").hide();
 
         includeHTML();
+        
+
+        //LOAD PAGE URL
+        var parts = window.location.search.substr(1).split("&");
+        var $_GET = {};
+        for (var i = 0; i < parts.length; i++) {
+            var temp = parts[i].split("=");
+            $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+        }
+        
+        //-VIEW
+        if($_GET["mod"] == 'V'){
+          $("#subtitle").html("Password View");  
+          
+          db.transaction(function (tx) {
+              tx.executeSql('SELECT * FROM data WHERE ID = '+$_GET["ID"],[], function(tx, results){
+                for (var i = 0; i < results.rows.length; i++) {
+                    row = results.rows.item(i);
+                    $("#data-name").val(row["NAME"]);
+                    $("#data-username").val(row["USERNAME"]);
+                    $("#data-password").val(row["PASSWORD"]);
+                }
+              });
+          });
+          
+          $("#data-name").prop('disabled', true);
+          $("#data-username").prop('disabled', true);
+          $("$data-password").prop('disabled', true);
+        }
+
+
+        //EDIT
+        if($_GET["mod"] == 'E'){
+          $("#subtitle").html("Password Edit");  
+          
+          db.transaction(function (tx) {
+              tx.executeSql('SELECT * FROM data WHERE ID = '+$_GET["ID"],[], function(tx, results){
+                for (var i = 0; i < results.rows.length; i++) {
+                    row = results.rows.item(i);
+                    $("#data-name").val(row["NAME"]);
+                    $("#data-username").val(row["USERNAME"]);
+                    $("#data-password").val(row["PASSWORD"]);
+                }
+              });
+          });
+
+          $("#data-mod").val("E");
+          $("#data-id").val($_GET["ID"]);
+        }
+
     },
 
     doQuery : function(){
@@ -110,11 +161,11 @@ var app = {
 
                 //alert(row["NAME"]);
 
-                rowstmt = '<tr role="row" class="odd">';
-                rowstmt += '<td tabindex="0" class="sorting_1">'+row["NAME"]+'</td>';                 
+                rowstmt =  '<tr role="row" class="odd">';
+                rowstmt += '<td tabindex="0" class="sorting_1"><a href="add.html?ID='+row["ID"]+'&&mod=V">'+row["NAME"]+'</a></td>';                 
                 rowstmt += '<td class=" actions">';
-                rowstmt += '<a href="#" class="btn btn-icon btn-pill btn-primary" data-toggle="tooltip" title="Edit"><i class="fa fa-fw fa-edit"></i></a>';
-                rowstmt += '<a href="#" class="btn btn-icon btn-pill btn-danger" data-toggle="tooltip" title="Delete"><i class="fa fa-fw fa-trash"></i></a>';
+                rowstmt += '<a href="add.html?ID='+row["ID"]+'&&mod=E"class="btn btn-icon btn-pill btn-primary" data-toggle="tooltip" title="Edit"><i class="fa fa-fw fa-edit"></i></a>';
+                rowstmt += '<a onclick = "app.doDelete(\'4\')" class="btn btn-icon btn-pill btn-danger" data-toggle="tooltip" title="Delete"><i class="fa fa-fw fa-trash"></i></a>';
                 rowstmt += '</td>'
                 rowstmt += '</tr>';
                 
@@ -126,14 +177,36 @@ var app = {
     },
 
     doAdd : function(){
-      db.transaction(function (tx) {
-         tx.executeSql("INSERT INTO data(NAME,USERNAME,PASSWORD) VALUES (?,?,?)", 
-            [$("#data-name").val(),
-             $("#data-username").val(),
-             $("#data-password").val()], 
-             onSuccess, onError);
-      });
-      alert("Has Been Uploaded"+$("#data-username").val());
+      if($("#data-mod").val() == "E"){
+        db.transaction(function (tx) {
+             tx.executeSql("UPDATE data SET NAME = ?, USERNAME = ? ,PASSWORD = ? WHERE ID = "+$("#data-id").val(), 
+                [$("#data-name").val(),
+                 $("#data-username").val(),
+                 $("#data-password").val()], 
+                 onSuccess, onError);
+          });
+          alert("Data has Been Edited"); 
+      } else{ 
+          db.transaction(function (tx) {
+             tx.executeSql("INSERT INTO data(NAME,USERNAME,PASSWORD) VALUES (?,?,?)", 
+                [$("#data-name").val(),
+                 $("#data-username").val(),
+                 $("#data-password").val()], 
+                 onSuccess, onError);
+          });
+          alert("Data Has Been Uploaded");
+      }
+    },
+
+    doDelete : function(ID){
+        if(confirm("Are you sure want to delete ?") == true){
+          db.transaction(function (tx) {
+             tx.executeSql("DELETE FROM data WHERE ID = "+ID, 
+                [], 
+                 onSuccess, onError);
+          });
+          alert("Data Has Been Delete");
+        }
     },
 
     // deviceready Event Handler

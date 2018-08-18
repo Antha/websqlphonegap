@@ -1,8 +1,8 @@
 {
   "background_color": "#FFF",
   "display": "standalone",
-  "name": "SQLiteExample",
-  "short_name": "SQLiteExample",
+  "name": "Password Saver",
+  "short_name": "Password Saver",
   "version": "com.codesundar.sqlite",
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "author": "Apache Cordova Team",

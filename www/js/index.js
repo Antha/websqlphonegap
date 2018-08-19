@@ -71,16 +71,21 @@ var app = {
                 [], onSuccess, onError);
         });
 
+        db.transaction(function (tx) {
+            tx.executeSql("CREATE TABLE IF NOT EXISTS auth(PASSWORD TEXT)",
+                [], onSuccess, onError);
+        });
+
         //HEAD
         $("#headApp").html("Password Saver");
 
         //DATATABBLE
         $('#data').DataTable();
         $(".dataTables_empty").hide();
-
+        
+        //INCLUDE
         includeHTML();
         
-
         //LOAD PAGE URL
         var parts = window.location.search.substr(1).split("&");
         var $_GET = {};
@@ -128,6 +133,21 @@ var app = {
           $("#data-mod").val("E");
           $("#data-id").val($_GET["ID"]);
         }
+
+
+        //PASS VIEW
+        db.transaction(function (tx) {
+              tx.executeSql('SELECT * FROM auth ',[], function(tx, results){
+                if(results.rows.length != 0){
+                    $("#subtitle").html("Edit Password");
+                    $("#a-pass-link").html("Edit Password");
+                    $("#ctn-confirm-password").show();
+                    $(".button-password").attr('id', 'edit-password');
+                    row = results.rows.item(0);
+                    $("#val-old-password").val(row["PASSWORD"]);
+                }
+              });
+          });
 
     },
 
@@ -211,6 +231,58 @@ var app = {
         }
     },
 
+    login : function(){
+        if($("#password").val() == ""){
+            alert("Please Insert Password");
+            return false;
+        }
+
+        db.transaction(function(tx){
+            tx.executeSql(" SELECT * FROM auth WHERE PASSWORD = '"+$("#password").val()+"' ",
+                [],function(tx,results){
+                    if(results.rows.length == 0){
+                        alert("Your Password Is Wrong");
+                        return false;
+                    }else{
+                        window.location.href = "index.html";
+                    }
+                });
+        });
+    },
+
+    pass_doAdd : function(){
+        if($("#password").val() == ""){
+            alert("Please Insert Password");
+            return false;
+        }
+
+        db.transaction(function(tx){
+            tx.executeSql(" DELETE FROM auth ",[],onSuccess,onError);
+            tx.executeSql(" INSERT INTO auth (PASSWORD) VALUES (?) ",
+                [$("#password").val()],onSuccess,onError);
+            alert("Your Password Has Been Inserted");
+        });
+    },
+
+    pass_doEdit : function(){
+        if($("#val-old-password").val() == $("#vold-password").val()){
+            alert("Your Old Password Is Wrong");
+            return false;
+        }
+
+        if($("#password").val() == ""){
+            alert("Please Insert New Password");
+            return false;
+        }
+
+        db.transaction(function(tx){
+            tx.executeSql(" DELETE FROM auth ",[],onSuccess,onError);
+            tx.executeSql(" INSERT INTO auth (PASSWORD) VALUES (?) ",
+               [$("#password").val()],onSuccess,onError);
+            alert("Your Password Has Been Changed");
+        });
+    },
+
     // deviceready Event Handler
     //
     // Bind any cordova events here. Common events are:
@@ -238,3 +310,15 @@ app.doView();
 $("#add-data").click(function(){
     app.doAdd();
 });
+
+$("#add-password").click(function(){
+    app.pass_doAdd();
+});
+
+$("#edit-password").click(function(){
+    app.pass_doEdit();
+});
+
+$("#login").click(function(){
+    app.login();
+})

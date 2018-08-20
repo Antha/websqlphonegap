@@ -111,7 +111,11 @@ var app = {
           
           $("#data-name").prop('disabled', true);
           $("#data-username").prop('disabled', true);
-          $("$data-password").prop('disabled', true);
+          $("#data-password").prop('disabled', true);
+
+          $(".submit-data").attr('id','show-password');
+          $(".submit-data").html('Show Password');
+
         }
 
 
@@ -231,6 +235,14 @@ var app = {
         }
     },
 
+    showPass : function(){
+      if($("#data-password").attr('type') == "password"){
+        $("#data-password").attr('type','text');
+      }else{
+        $("#data-password").attr('type','password')
+      }
+    },
+
     login : function(){
         if($("#password").val() == ""){
             alert("Please Insert Password");
@@ -321,4 +333,8 @@ $("#edit-password").click(function(){
 
 $("#login").click(function(){
     app.login();
+})
+
+$("#show-password").click(function(){
+    app.showPass();
 })

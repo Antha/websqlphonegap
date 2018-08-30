@@ -12,7 +12,17 @@
     },
     "cordova-plugin-websql": {
       "PACKAGE_NAME": "com.codesundar.sqlite"
+    },
+    "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "com.codesundar.sqlite"
+    },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.codesundar.sqlite"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.codesundar.sqlite"
+    }
+  }
 }
